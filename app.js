@@ -39,8 +39,11 @@ app.get("/", function(req, res) {
           } else {
             res.write(
               "<p>Date: " + Object.keys(neoData.near_earth_objects)[i] +
-              " | Name: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
+              " | Astriod: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
+              " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
+              " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
               " | Hazard: Safe</p></br>");
+
           }
 
         }
