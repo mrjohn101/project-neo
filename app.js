@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
+const axios = require('axios').default;
 const app = express();
 
 app.use(express.urlencoded({
@@ -8,8 +9,14 @@ app.use(express.urlencoded({
 }));
 
 app.get("/", function(req, res) {
-  const startDate = "2022-04-18";
-  const endDate = "2022-04-25";
+
+  const today = new Date();
+  const endDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+  const dateMinusSeven = new Date();
+  dateMinusSeven.setDate(dateMinusSeven.getDate() - 7);
+  const startDate = dateMinusSeven.getFullYear()+'-'+(dateMinusSeven.getMonth()+1)+'-'+dateMinusSeven.getDate();
+
   const apiKey = "RFt5GDdxmazfJKz78s5nCdiQ5TpapUP7TF1dYHfw";
   const url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + startDate + "&end_date=" + endDate + "&api_key=" + apiKey;
   //input //call back
@@ -43,14 +50,10 @@ app.get("/", function(req, res) {
               " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
               " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
               " | Hazard: Safe</p></br>");
-
           }
-
         }
-
       }
       res.send();
-
     });
   });
 
