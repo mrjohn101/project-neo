@@ -33,6 +33,7 @@ app.get("/", function(req, res) {
       let propertyDatesArray = Object.keys(neoData.near_earth_objects);
 
       res.write("<h1>Project Neo - Near Earth Object</h1>");
+      res.write("<h3>"+startDate+" ~ "+endDate+"(Today)</h3>");
       for (let i = 0; i < objectLength - 1; i++) {
         for (let n = 0; n < neoData.near_earth_objects[propertyDatesArray[i]].length; n++) {
           if (neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].is_potentially_hazardous_asteroid === true) {
