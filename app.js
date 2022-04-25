@@ -34,26 +34,30 @@ app.get("/", function(req, res) {
 
       res.write("<h1>Project Neo - Near Earth Object</h1>");
       res.write("<h3>"+startDate+" ~ "+endDate+"(Today)</h3>");
+      res.write("<ul>");
       for (let i = 0; i < objectLength - 1; i++) {
         for (let n = 0; n < neoData.near_earth_objects[propertyDatesArray[i]].length; n++) {
+
           if (neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].is_potentially_hazardous_asteroid === true) {
             res.write(
-              "<p>Date: " + Object.keys(neoData.near_earth_objects)[i] +
+              "<li style=\"background:red;\">Date: " + Object.keys(neoData.near_earth_objects)[i] +
               " | Astriod: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
               " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
               " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
-              " | Hazard: <strong>Potential Hazard for Earth</strong></p></br>");
+              " | Hazard: <strong>Potential Hazard for Earth</strong></li></br>");
 
           } else {
             res.write(
-              "<p>Date: " + Object.keys(neoData.near_earth_objects)[i] +
+              "<li>Date: " + Object.keys(neoData.near_earth_objects)[i] +
               " | Astriod: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
               " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
               " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
-              " | Hazard: Safe</p></br>");
+              " | Hazard: Safe</li></br>");
           }
+
         }
       }
+      res.write("</ul>");
       res.send();
     });
   });
