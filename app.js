@@ -39,7 +39,7 @@ app.get("/", function(req, res) {
       res.write("<h1 style='font-size:50px;'>PROJECT Neo - Near Earth Object</h1>");
       res.write("<h3 style='color:gray;'>" + startDate + " ~ " + endDate + "(UTC)</h3>");
       res.write("</section>");
-      res.write("<section id='content' style='padding-left:5%;'>");
+      res.write("<section id='content' style='padding-left:5%;padding-top:30px;'>");
       res.write("<ul>");
 
       function astDate(i) {
