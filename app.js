@@ -45,6 +45,7 @@ app.get("/", function(req, res) {
         name = name.replace("(","");
         name = name.replace(")","");
         name = name.replace(" ","-");
+        name = name.replace(" ","-");
         name = name.toLowerCase();
         return "<a href=https://www.spacereference.org/asteroid/"+name+">"+name+"</a>";
       }
