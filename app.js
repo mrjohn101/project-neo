@@ -36,7 +36,7 @@ app.get("/", function(req, res) {
       res.write("<!DOCTYPE html\><html lang='en' dir='ltr'> <head><meta charset='utf-8'><title>Project Neo - Near Earth Object</title><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3' crossorigin='anonymous'></head>");
       res.write("<body style='background-color:lightgray;margin:0px'>");
       res.write("<section id='title' style='background-color:black;color:white;padding-left:5%;padding-top:30px;padding-bottom:30px;'>");
-      res.write("<h1 style='font-size:50px;'>PROJECT Neo - Near Earth Object</h1>");
+      res.write("<h1 style='font-size:40px;'>PROJECT Neo - Near Earth Object</h1>");
       res.write("<h3 style='color:gray;'>" + startDate + " ~ " + endDate + "(UTC)</h3>");
       res.write("</section>");
       res.write("<section id='content' style='padding-left:5%;padding-top:30px;'>");
