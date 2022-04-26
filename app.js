@@ -4,6 +4,8 @@ const https = require('https');
 const axios = require('axios').default;
 const app = express();
 
+app.use(express.static('public'));
+
 app.use(express.urlencoded({
   extended: true
 }));
@@ -32,8 +34,12 @@ app.get("/", function(req, res) {
       let objectLength = Object.keys(neoData.near_earth_objects).length;
       let propertyDatesArray = Object.keys(neoData.near_earth_objects);
 
-      res.write("<h1>Project Neo - Near Earth Object</h1>");
-      res.write("<h3>" + startDate + " ~ " + endDate + "(UTC)</h3>");
+      res.write("<body style='background-color:lightgray;margin:0px'>");
+      res.write("<section id='title' style='background-color:black;color:white;padding-left:5%;padding-top:5px;padding-bottom:5px;'>");
+      res.write("<h1 style='font-size:50px;'>PROJECT Neo - Near Earth Object</h1>");
+      res.write("<h3 style='color:gray;'>" + startDate + " ~ " + endDate + "(UTC)</h3>");
+      res.write("</section>");
+      res.write("<section id='content' style='padding-left:5%;'>");
       res.write("<ul>");
 
       function astDate(i) {
@@ -90,6 +96,10 @@ app.get("/", function(req, res) {
         }
       }
       res.write("</ul>");
+      res.write("<p>Data retrieved from NASA Asteroids - NeoWs (Near Earth Object Web Service)</p>");
+      res.write("<p>Developed by John Kang. <a href=\"mailto:mrjohnka@gmail.com\">Contact me for any enquiry</a></p>");
+      res.write("</section>");
+      res.write("</body>");
       res.send();
     });
   });
