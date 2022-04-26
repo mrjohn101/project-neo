@@ -11,11 +11,11 @@ app.use(express.urlencoded({
 app.get("/", function(req, res) {
 
   const today = new Date();
-  const endDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  const endDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
   const dateMinusSeven = new Date();
   dateMinusSeven.setDate(dateMinusSeven.getDate() - 7);
-  const startDate = dateMinusSeven.getFullYear()+'-'+(dateMinusSeven.getMonth()+1)+'-'+dateMinusSeven.getDate();
+  const startDate = dateMinusSeven.getFullYear() + '-' + (dateMinusSeven.getMonth() + 1) + '-' + dateMinusSeven.getDate();
 
   const apiKey = "RFt5GDdxmazfJKz78s5nCdiQ5TpapUP7TF1dYHfw";
   const url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + startDate + "&end_date=" + endDate + "&api_key=" + apiKey;
@@ -33,28 +33,52 @@ app.get("/", function(req, res) {
       let propertyDatesArray = Object.keys(neoData.near_earth_objects);
 
       res.write("<h1>Project Neo - Near Earth Object</h1>");
-      res.write("<h3>"+startDate+" ~ "+endDate+"(UTC)</h3>");
+      res.write("<h3>" + startDate + " ~ " + endDate + "(UTC)</h3>");
       res.write("<ul>");
+
+      function astDate(i) {
+        return Object.keys(neoData.near_earth_objects)[i]
+      }
+
+      function asteroidName(i, n) {
+        return neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name;
+      }
+
+      function estDiameterMin(i, n) {
+        let diameterMin = Number(neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min);
+        return diameterMin.toFixed(2);
+      }
+
+      function estDiameterMax(i, n) {
+        let diameterMax = Number(neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max);
+        return diameterMax.toFixed(2);
+      }
+
+      function missDistance(i, n) {
+        let distance = Number(neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].close_approach_data[0].miss_distance.kilometers);
+        return distance.toLocaleString('en-US');
+      }
+
       for (let i = 0; i < objectLength - 1; i++) {
         for (let n = 0; n < neoData.near_earth_objects[propertyDatesArray[i]].length; n++) {
 
           if (neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].is_potentially_hazardous_asteroid === true) {
             res.write(
-              "<li style=\"background:red;\">Date: " + Object.keys(neoData.near_earth_objects)[i] +
-              " | Asteroid: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
-              " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
-              " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
-              " | Miss Distance(km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].close_approach_data[0].miss_distance.kilometers +
-              " | Hazard: <strong>Potential Hazard for Earth</strong></li></br>");
+              "<li>Date: " + astDate(i) + " | " +
+              "Asteroid: " + asteroidName(i, n) + "</br>" +
+              "Est Diameter min(Km): " + estDiameterMin(i, n) + " | " +
+              "Est Diameter max(Km): " + estDiameterMax(i, n) + " | " +
+              "Miss Distance(km): " + missDistance(i, n) + "</br>" +
+              "Hazard: <strong>Potential Hazard for Earth</strong></li></br>");
 
           } else {
             res.write(
-              "<li>Date: " + Object.keys(neoData.near_earth_objects)[i] +
-              " | Asteroid: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
-              " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
-              " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
-              " | Miss Distance(km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].close_approach_data[0].miss_distance.kilometers +
-              " | Hazard: Safe</li></br>");
+              "<li>Date: " + astDate(i) + " | " +
+              "Asteroid: " + asteroidName(i, n) + "</br>" +
+              "Est Diameter min(Km): " + estDiameterMin(i, n) + " | " +
+              "Est Diameter max(Km): " + estDiameterMax(i, n) + " | " +
+              "Miss Distance(km): " + missDistance(i, n) + "</br>" +
+              "Hazard: Safe</li></br>");
           }
 
         }
@@ -66,9 +90,10 @@ app.get("/", function(req, res) {
 
 });
 
+
+
+
 app.post("/", function(req, res) {
-
-
 
 });
 
