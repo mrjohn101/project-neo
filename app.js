@@ -41,7 +41,12 @@ app.get("/", function(req, res) {
       }
 
       function asteroidName(i, n) {
-        return neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name;
+        let name = neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name;
+        name = name.replace("(","");
+        name = name.replace(")","");
+        name = name.replace(" ","-");
+        name = name.toLowerCase();
+        return "<a href=https://www.spacereference.org/asteroid/"+name+">"+name+"</a>";
       }
 
       function estDiameterMin(i, n) {
