@@ -41,17 +41,19 @@ app.get("/", function(req, res) {
           if (neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].is_potentially_hazardous_asteroid === true) {
             res.write(
               "<li style=\"background:red;\">Date: " + Object.keys(neoData.near_earth_objects)[i] +
-              " | Astriod: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
+              " | Asteroid: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
               " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
               " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
+              " | Miss Distance(km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].close_approach_data[0].miss_distance.kilometers +
               " | Hazard: <strong>Potential Hazard for Earth</strong></li></br>");
 
           } else {
             res.write(
               "<li>Date: " + Object.keys(neoData.near_earth_objects)[i] +
-              " | Astriod: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
+              " | Asteroid: " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].name +
               " | Est Diameter min(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_min +
               " | Est Diameter max(Km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].estimated_diameter.kilometers.estimated_diameter_max +
+              " | Miss Distance(km): " + neoData.near_earth_objects[Object.keys(neoData.near_earth_objects)[i]][n].close_approach_data[0].miss_distance.kilometers +
               " | Hazard: Safe</li></br>");
           }
 
